@@ -5,7 +5,7 @@ It has 2 web apps each deployed to a different module: guestbook and shardedcoun
 
 Usage (After changing the app id in the appengine-modules-ear/src/main/application/META-INF/appengine-application.xml):
 
-    git clone https://github.com/ludoch/appengine-modules-sample-java.git
+    git clone https://github.com/GoogleCloudPlatform/appengine-modules-sample-java.git
     cd appengine-modules-sample-java
     mvn install
     cd appengine-modules-ear
