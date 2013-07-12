@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <servlet>
+        <servlet-name>java-v1</servlet-name>
+        <servlet-class>
+            com.google.appengine.demos.shardedcounter.java.v1.CounterPage
+        </servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>java-v2</servlet-name>
+        <servlet-class>
+            com.google.appengine.demos.shardedcounter.java.v2.CounterPage
+        </servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jdo-v1</servlet-name>
+        <servlet-class>
+            com.google.appengine.demos.shardedcounter.jdo.v1.CounterPage
+        </servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jdo-v2</servlet-name>
+        <servlet-class>
+            com.google.appengine.demos.shardedcounter.jdo.v2.CounterPage
+        </servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jdo-v3</servlet-name>
+        <servlet-class>
+            com.google.appengine.demos.shardedcounter.jdo.v3.CounterPage
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>java-v1</servlet-name>
+        <url-pattern>/java-v1/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>java-v2</servlet-name>
+        <url-pattern>/java-v2/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jdo-v1</servlet-name>
+        <url-pattern>/jdo-v1/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jdo-v2</servlet-name>
+        <url-pattern>/jdo-v2/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jdo-v3</servlet-name>
+        <url-pattern>/jdo-v3/</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>
+
