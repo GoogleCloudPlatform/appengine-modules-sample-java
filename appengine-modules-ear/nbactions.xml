@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-devserver</actionName>
+            <displayName>devserver</displayName>
+            <goals>
+                <goal>appengine:devserver</goal>
+            </goals>
+        </action>
+    </actions>
