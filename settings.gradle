@@ -1,0 +1,1 @@
+include 'appengine-modules-guestbook', 'appengine-modules-shardedcounter', 'appengine-modules-ear'

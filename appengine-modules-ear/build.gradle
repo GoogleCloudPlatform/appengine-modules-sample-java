@@ -1,0 +1,9 @@
+apply plugin: 'ear'
+apply plugin: 'java'
+
+repositories { mavenCentral() }
+
+dependencies {
+    deploy project(path: ':appengine-modules-guestbook', configuration: 'archives')
+    deploy project(path: ':appengine-modules-shardedcounter', configuration: 'archives')
+}
