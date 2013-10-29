@@ -1,9 +1,22 @@
 apply plugin: 'ear'
-apply plugin: 'java'
+apply plugin: 'appengine'
 
-repositories { mavenCentral() }
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.8.6'
+    }
+}
 
 dependencies {
+    appengineSdk 'com.google.appengine:appengine-java-sdk:1.8.6'
     deploy project(path: ':appengine-modules-guestbook', configuration: 'archives')
     deploy project(path: ':appengine-modules-shardedcounter', configuration: 'archives')
+}
+
+appengine {
+    downloadSdk = true
 }

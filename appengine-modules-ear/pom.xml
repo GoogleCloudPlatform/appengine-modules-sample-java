@@ -32,7 +32,8 @@
         <configuration>
           <version>5</version>
           <defaultLibBundleDir>lib</defaultLibBundleDir>
-          <unpackTypes>war</unpackTypes> 
+          <unpackTypes>war</unpackTypes>
+          <applicationXml>${project.basedir}/src/main/application/META-INF/maven-application.xml</applicationXml>
         </configuration>
       </plugin>
       <plugin>
@@ -42,6 +43,7 @@
       </plugin>
     </plugins>
   </build>
+
   <dependencies>
     <dependency>
       <groupId>com.google.appengine.sample</groupId>
@@ -55,7 +57,6 @@
       <version>1.0</version>
       <type>war</type>
     </dependency>
-        
   </dependencies>
   <properties/>
 </project>

@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd" version="5">
+<?xml version="1.0"?>
+<!-- This is the application.xml file intended for use with gradle, if you find it in your maven project, then that's a problem most likely. -->
+<application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
   <display-name>appengine-modules-ear</display-name>
   <module>
     <web>
-      <web-uri>appengine-modules-guestbook-1.0.war</web-uri>
-      <context-root>/notused1</context-root>
+      <web-uri>appengine-modules-guestbook-1.0</web-uri>
+      <context-root>appengine-modules-guestbook</context-root>
     </web>
   </module>
   <module>
     <web>
-      <web-uri>appengine-modules-shardedcounter-1.0.war</web-uri>
-      <context-root>/notused2</context-root>
+      <web-uri>appengine-modules-shardedcounter-1.0</web-uri>
+      <context-root>appengine-modules-shardedcounter</context-root>
     </web>
   </module>
   <library-directory>lib</library-directory>

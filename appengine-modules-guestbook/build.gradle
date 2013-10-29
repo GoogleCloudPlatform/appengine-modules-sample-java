@@ -1,9 +1,5 @@
 apply plugin: 'war'
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compile 'com.google.appengine:appengine-api-1.0-sdk:1.8.5'
     compile 'javax.servlet:servlet-api:2.5'
