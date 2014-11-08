@@ -4,7 +4,11 @@
   <version>1</version>
   <threadsafe>true</threadsafe>
     
-  <module>guestbook</module>
+  <!-- 
+       We do not specify the module name so this is the default module.
+       There is only 1 default module per application.
+  -->  
+  <!--module>guestbook</module-->
   <system-properties>
     <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
   </system-properties>
