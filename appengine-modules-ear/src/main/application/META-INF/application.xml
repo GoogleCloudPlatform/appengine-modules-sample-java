@@ -4,6 +4,11 @@
   <display-name>appengine-modules-ear</display-name>
   <module>
     <web>
+        <!--     
+           It is recommended the first module is the default module, so that
+        the first deployment will work (and create the mandatory default module,
+        before deploying the second module.
+      -->  
       <web-uri>appengine-modules-guestbook-1.0</web-uri>
       <context-root>appengine-modules-guestbook</context-root>
     </web>
