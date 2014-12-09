@@ -31,7 +31,7 @@ public class CounterPage extends HttpServlet {
     resp.getWriter().println("<html>");
     resp.getWriter().println("  <body>");
 
-    Counter counter = new Counter();
+    final Counter counter = new Counter();
 
     resp.getWriter().println("  <p>Current count: " + counter.getCount()
         + "</p>");
@@ -48,7 +48,7 @@ public class CounterPage extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    Counter counter = new Counter();
+    final Counter counter = new Counter();
     counter.addShard();
     doGet(req, resp);
   }

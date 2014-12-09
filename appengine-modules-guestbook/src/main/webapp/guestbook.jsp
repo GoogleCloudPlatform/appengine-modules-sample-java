@@ -25,8 +25,8 @@
         guestbookName = "default";
     }
     pageContext.setAttribute("guestbookName", guestbookName);
-    UserService userService = UserServiceFactory.getUserService();
-    User user = userService.getCurrentUser();
+    final UserService userService = UserServiceFactory.getUserService();
+    final User user = userService.getCurrentUser();
     if (user != null) {
         pageContext.setAttribute("user", user);
 %>
@@ -43,12 +43,12 @@
 %>
 
 <%
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
+    final DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    final Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
     // Run an ancestor query to ensure we see the most up-to-date
     // view of the Greetings belonging to the selected Guestbook.
-    Query query = new Query("Greeting", guestbookKey).addSort("date", Query.SortDirection.DESCENDING);
-    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+    final Query query = new Query("Greeting", guestbookKey).addSort("date", Query.SortDirection.DESCENDING);
+    final List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
     if (greetings.isEmpty()) {
 %>
 <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
@@ -57,7 +57,7 @@
 %>
 <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 <%
-    for (Entity greeting : greetings) {
+    for (final Entity greeting : greetings) {
         pageContext.setAttribute("greeting_content",
                 greeting.getProperty("content"));
         if (greeting.getProperty("user") == null) {

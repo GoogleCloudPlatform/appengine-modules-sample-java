@@ -36,13 +36,13 @@ public class Counter {
 
   public int getCount() {
     int sum = 0;
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    final PersistenceManager pm = PMF.get().getPersistenceManager();
     List<LimitedCounterShard> shards = null;
     try {
-      String query = "select from " + LimitedCounterShard.class.getName();
+      final String query = "select from " + LimitedCounterShard.class.getName();
       shards = (List<LimitedCounterShard>) pm.newQuery(query).execute();
       if (shards != null && !shards.isEmpty()) {
-        for (LimitedCounterShard shard : shards) {
+        for (final LimitedCounterShard shard : shards) {
           sum += shard.getCount();
         }
       }
@@ -57,10 +57,10 @@ public class Counter {
   }
 
   public void addShards(int count) {
-    LimitedCounterShard newShard = new LimitedCounterShard();
+    final LimitedCounterShard newShard = new LimitedCounterShard();
     newShard.setCount(Integer.valueOf(count));
 
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    final PersistenceManager pm = PMF.get().getPersistenceManager();
     try {
       pm.makePersistent(newShard);
     } finally {

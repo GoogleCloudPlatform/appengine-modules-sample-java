@@ -32,7 +32,7 @@ public class CounterPage extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     displayPageStart(resp);
-    ShardedCounter counter = getOrCreateCounter(resp);
+    final ShardedCounter counter = getOrCreateCounter(resp);
     displayCounts(counter, resp);
     displayInputFormAndClose(resp);
   }
@@ -41,7 +41,7 @@ public class CounterPage extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     displayPageStart(resp);
-    ShardedCounter counter = getOrCreateCounter(resp);
+    final ShardedCounter counter = getOrCreateCounter(resp);
     if (Boolean.parseBoolean(req.getParameter("addShard"))) {
       displayCount(counter, resp);
       displayNumberOfShards(counter.addShard(), resp);
@@ -63,7 +63,7 @@ public class CounterPage extends HttpServlet {
    */
   private ShardedCounter getOrCreateCounter(HttpServletResponse resp)
       throws IOException {
-    CounterFactory factory = new CounterFactory();
+    final CounterFactory factory = new CounterFactory();
     ShardedCounter counter = factory.getCounter("test-counter");
     if (counter == null) {
       counter = factory.createCounter("test-counter");

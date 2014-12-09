@@ -35,10 +35,10 @@ public class CounterShard {
   private Long id;
 
   @Persistent
-  private Integer shardNumber;
+  private final Integer shardNumber;
 
   @Persistent
-  private String counterName;
+  private final String counterName;
 
   @Persistent
   private Integer count;

@@ -26,7 +26,7 @@ import javax.jdo.PersistenceManager;
 public class CounterFactory {
 
   public ShardedCounter getCounter(String name) {
-    ShardedCounter counter = new ShardedCounter(name);
+    final ShardedCounter counter = new ShardedCounter(name);
     if (counter.isInDatastore()) {
       return counter;
     } else {
@@ -35,10 +35,10 @@ public class CounterFactory {
   }
 
   public ShardedCounter createCounter(String name) {
-    ShardedCounter counter = new ShardedCounter(name);
+    final ShardedCounter counter = new ShardedCounter(name);
 
-    DatastoreCounter counterEntity = new DatastoreCounter(name, 0);
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    final DatastoreCounter counterEntity = new DatastoreCounter(name, 0);
+    final PersistenceManager pm = PMF.get().getPersistenceManager();
     try {
       pm.makePersistent(counterEntity);
     } finally {

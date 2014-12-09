@@ -33,7 +33,7 @@ import javax.jdo.Query;
  *
  */
 public class ShardedCounter {
-  private String counterName;
+  private final String counterName;
 
   public ShardedCounter(String counterName) {
     this.counterName = counterName;
@@ -45,10 +45,10 @@ public class ShardedCounter {
 
   private Counter getThisCounter(PersistenceManager pm) {
     Counter current = null;
-    Query thisCounterQuery = pm.newQuery(Counter.class,
+    final Query thisCounterQuery = pm.newQuery(Counter.class,
         "counterName == nameParam");
     thisCounterQuery.declareParameters("String nameParam");
-    List<Counter> counter = (List<Counter>) thisCounterQuery.execute(
+    final List<Counter> counter = (List<Counter>) thisCounterQuery.execute(
         counterName);
     if (counter != null && !counter.isEmpty()) {
       current = counter.get(0);
@@ -58,7 +58,7 @@ public class ShardedCounter {
 
   public boolean isInDatastore() {
     boolean counterStored = false;
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    final PersistenceManager pm = PMF.get().getPersistenceManager();
     try {
       if (getThisCounter(pm) != null) {
         counterStored = true;
@@ -71,16 +71,16 @@ public class ShardedCounter {
 
   public int getCount() {
     int sum = 0;
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    final PersistenceManager pm = PMF.get().getPersistenceManager();
 
     try {
-      Query shardsQuery = pm.newQuery(CounterShard.class,
+      final Query shardsQuery = pm.newQuery(CounterShard.class,
                                       "counterName == nameParam");
       shardsQuery.declareParameters("String nameParam");
-      List<CounterShard> shards = (List<CounterShard>) shardsQuery.execute(
+      final List<CounterShard> shards = (List<CounterShard>) shardsQuery.execute(
           counterName);
       if (shards != null && !shards.isEmpty()) {
-        for (CounterShard current : shards) {
+        for (final CounterShard current : shards) {
           sum += current.getCount();
         }
       }
@@ -92,9 +92,9 @@ public class ShardedCounter {
 
   public int getNumShards() {
     int numShards = 0;
-    PersistenceManager pm = PMF.get().getPersistenceManager();
+    final PersistenceManager pm = PMF.get().getPersistenceManager();
     try {
-      Counter current = getThisCounter(pm);
+      final Counter current = getThisCounter(pm);
       if (current != null) {
         numShards = current.getShardCount().intValue();
       }
@@ -112,7 +112,7 @@ public class ShardedCounter {
     int numShards = 0;
     PersistenceManager pm = PMF.get().getPersistenceManager();
     try {
-      Counter current = getThisCounter(pm);
+      final Counter current = getThisCounter(pm);
       if (current != null) {
         numShards = current.getShardCount().intValue();
         current.setShardCount(numShards + count);
@@ -125,7 +125,7 @@ public class ShardedCounter {
     pm = PMF.get().getPersistenceManager();
     try {
       for (int i = 0; i < count; i++) {
-        CounterShard newShard = new CounterShard(getCounterName(), numShards);
+        final CounterShard newShard = new CounterShard(getCounterName(), numShards);
         pm.makePersistent(newShard);
         numShards++;
       }
@@ -143,25 +143,25 @@ public class ShardedCounter {
     int shardCount = 0;
     PersistenceManager pm = PMF.get().getPersistenceManager();
     try {
-      Counter current = getThisCounter(pm);
+      final Counter current = getThisCounter(pm);
       shardCount = current.getShardCount();
     } finally {
       pm.close();
     }
 
-    Random generator = new Random();
-    int shardNum = generator.nextInt(shardCount);
+    final Random generator = new Random();
+    final int shardNum = generator.nextInt(shardCount);
 
     pm = PMF.get().getPersistenceManager();
     try {
-      Query randomShardQuery = pm.newQuery(CounterShard.class);
+      final Query randomShardQuery = pm.newQuery(CounterShard.class);
       randomShardQuery.setFilter(
           "counterName == nameParam && shardNumber == numParam");
       randomShardQuery.declareParameters("String nameParam, int numParam");
-      List<CounterShard> shards = (List<CounterShard>) randomShardQuery
+      final List<CounterShard> shards = (List<CounterShard>) randomShardQuery
           .execute(counterName, shardNum);
       if (shards != null && !shards.isEmpty()) {
-        CounterShard shard = shards.get(0);
+        final CounterShard shard = shards.get(0);
         shard.increment(count);
         pm.makePersistent(shard);
       }

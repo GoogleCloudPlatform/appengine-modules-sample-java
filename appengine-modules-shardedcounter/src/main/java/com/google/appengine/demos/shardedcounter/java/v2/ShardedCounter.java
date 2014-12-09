@@ -97,7 +97,7 @@ public class ShardedCounter {
   /**
    * The counter shard kind for this counter.
    */
-  private String kind;
+  private final String kind;
 
   private final MemcacheService mc = MemcacheServiceFactory
       .getMemcacheService();
@@ -121,7 +121,7 @@ public class ShardedCounter {
    * @return the new number of shards
    */
   public long addShards(int count) {
-    Key counterKey = KeyFactory.createKey(Counter.KIND, counterName);
+    final Key counterKey = KeyFactory.createKey(Counter.KIND, counterName);
     return incrementPropertyTx(counterKey, Counter.SHARD_COUNT, count,
         INITIAL_SHARDS + count);
   }
@@ -132,14 +132,14 @@ public class ShardedCounter {
    * @return Summed total of all shards' counts
    */
   public long getCount() {
-    Long value = (Long) mc.get(kind);
+    final Long value = (Long) mc.get(kind);
     if (value != null) {
       return value;
     }
 
     long sum = 0;
-    Query query = new Query(kind);
-    for (Entity shard : ds.prepare(query).asIterable()) {
+    final Query query = new Query(kind);
+    for (final Entity shard : ds.prepare(query).asIterable()) {
       sum += (Long) shard.getProperty(CounterShard.COUNT);
     }
     mc.put(kind, sum, Expiration.byDeltaSeconds(60),
@@ -152,11 +152,11 @@ public class ShardedCounter {
    * Increment the value of this sharded counter.
    */
   public void increment() {
-    int numShards = getShardCount();
+    final int numShards = getShardCount();
 
-    long shardNum = generator.nextInt(numShards);
+    final long shardNum = generator.nextInt(numShards);
 
-    Key shardKey = KeyFactory.createKey(kind, Long.toString(shardNum));
+    final Key shardKey = KeyFactory.createKey(kind, Long.toString(shardNum));
     incrementPropertyTx(shardKey, CounterShard.COUNT, 1, 1);
     mc.increment(kind, 1);
   }
@@ -168,9 +168,9 @@ public class ShardedCounter {
    */
   public int getShardCount() {
     try {
-      Key counterKey = KeyFactory.createKey(Counter.KIND, counterName);
-      Entity counter = ds.get(counterKey);
-      Long shardCount = (Long) counter.getProperty(Counter.SHARD_COUNT);
+      final Key counterKey = KeyFactory.createKey(Counter.KIND, counterName);
+      final Entity counter = ds.get(counterKey);
+      final Long shardCount = (Long) counter.getProperty(Counter.SHARD_COUNT);
       return shardCount.intValue();
     } catch (EntityNotFoundException ignore) {
       return INITIAL_SHARDS;
@@ -190,7 +190,7 @@ public class ShardedCounter {
    */
   private long incrementPropertyTx(Key key, String prop, long increment,
       long initialValue) {
-    Transaction tx = ds.beginTransaction();
+    final Transaction tx = ds.beginTransaction();
     Entity thing;
     long value;
     try {

@@ -31,7 +31,7 @@ public class CounterPage extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     displayPageStart(resp);
-    ShardedCounter counter = new ShardedCounter("test-counter");
+    final ShardedCounter counter = new ShardedCounter("test-counter");
     displayCounts(counter, resp);
     displayInputFormAndClose(resp);
   }
@@ -40,9 +40,9 @@ public class CounterPage extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     displayPageStart(resp);
-    ShardedCounter counter = new ShardedCounter("test-counter");
+    final ShardedCounter counter = new ShardedCounter("test-counter");
     if (Boolean.parseBoolean(req.getParameter("addShard"))) {
-      int inc = Integer.parseInt(req.getParameter("inc"));
+      final int inc = Integer.parseInt(req.getParameter("inc"));
       displayCount(counter, resp);
       displayNumberOfShards(counter.addShards(inc), resp);
     } else {
