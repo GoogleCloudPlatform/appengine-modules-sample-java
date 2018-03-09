@@ -1,4 +1,11 @@
-appengine-modules-sample-java
+![status: inactive](https://img.shields.io/badge/status-inactive-red.svg)
+
+This project is no longer actively developed or maintained.
+
+For new work on this check out [java-docs-samples](https://github.com/GoogleCloudPlatform/java-docs-samples) and [getting-started-java](https://github.com/GoogleCloudPlatform/getting-started-java).
+
+
+# appengine-modules-sample-java
 
 
 It has 2 web apps each deployed to a different module: guestbook and shardedcounter.
