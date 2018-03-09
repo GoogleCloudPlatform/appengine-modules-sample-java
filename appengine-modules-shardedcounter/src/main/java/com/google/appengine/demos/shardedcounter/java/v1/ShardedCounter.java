@@ -55,8 +55,8 @@ public class ShardedCounter {
   public long getCount() {
     long sum = 0;
 
-    Query query = new Query("SimpleCounterShard");
-    for (Entity e : ds.prepare(query).asIterable()) {
+    final Query query = new Query("SimpleCounterShard");
+    for (final Entity e : ds.prepare(query).asIterable()) {
       sum += (Long) e.getProperty("count");
     }
 
@@ -67,15 +67,15 @@ public class ShardedCounter {
    * Increment the value of this sharded counter.
    */
   public void increment() {
-    int shardNum = generator.nextInt(NUM_SHARDS);
-    Key shardKey = KeyFactory.createKey("SimpleCounterShard",
+    final int shardNum = generator.nextInt(NUM_SHARDS);
+    final Key shardKey = KeyFactory.createKey("SimpleCounterShard",
         Integer.toString(shardNum));
 
-    Transaction tx = ds.beginTransaction();
+    final Transaction tx = ds.beginTransaction();
     Entity shard;
     try {
       shard = ds.get(tx, shardKey);
-      long count = (Long) shard.getProperty("count");
+      final long count = (Long) shard.getProperty("count");
       shard.setUnindexedProperty("count", count + 1L);
     } catch (EntityNotFoundException e) {
       shard = new Entity(shardKey);

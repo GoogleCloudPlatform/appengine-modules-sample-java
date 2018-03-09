@@ -31,8 +31,8 @@ public class GuestbookServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
 
-    UserService userService = UserServiceFactory.getUserService();
-    User currentUser = userService.getCurrentUser();
+    final UserService userService = UserServiceFactory.getUserService();
+    final User currentUser = userService.getCurrentUser();
 
     if (currentUser != null) {
       resp.setContentType("text/plain");

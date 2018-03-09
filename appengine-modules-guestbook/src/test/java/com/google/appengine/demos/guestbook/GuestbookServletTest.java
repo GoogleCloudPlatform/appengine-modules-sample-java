@@ -59,16 +59,16 @@ public class GuestbookServletTest {
 
   @Test
   public void testDoGet() throws IOException {
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    final HttpServletResponse response = mock(HttpServletResponse.class);
 
-    StringWriter stringWriter = new StringWriter();
+    final StringWriter stringWriter = new StringWriter();
 
     when(response.getWriter()).thenReturn(new PrintWriter(stringWriter));
 
     guestbookServlet.doGet(request, response);
 
-    User currentUser = UserServiceFactory.getUserService().getCurrentUser();
+    final User currentUser = UserServiceFactory.getUserService().getCurrentUser();
 
     assertEquals("Hello, " + currentUser.getNickname() + "\n", stringWriter.toString());
   }

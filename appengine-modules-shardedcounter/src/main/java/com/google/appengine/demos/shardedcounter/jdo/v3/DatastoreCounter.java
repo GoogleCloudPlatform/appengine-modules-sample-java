@@ -32,7 +32,7 @@ public class DatastoreCounter {
   private Long id;
 
   @Persistent
-  private String counterName;
+  private final String counterName;
 
   @Persistent
   private Integer numShards;

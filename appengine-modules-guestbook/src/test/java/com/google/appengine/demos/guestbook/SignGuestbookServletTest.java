@@ -64,32 +64,32 @@ public class SignGuestbookServletTest {
 
   @Test
   public void testDoPost() throws IOException, EntityNotFoundException {
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    HttpServletResponse response = mock(HttpServletResponse.class);
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    final HttpServletResponse response = mock(HttpServletResponse.class);
 
-    String guestbookName = "TestGuestbook";
-    String testContent = "Test Content";
+    final String guestbookName = "TestGuestbook";
+    final String testContent = "Test Content";
 
     when(request.getParameter("guestbookName")).thenReturn(guestbookName);
     when(request.getParameter("content")).thenReturn(testContent);
 
-    Date priorToRequest = new Date();
+    final Date priorToRequest = new Date();
 
     signGuestbookServlet.doPost(request, response);
 
-    Date afterRequest = new Date();
+    final Date afterRequest = new Date();
 
     verify(response).sendRedirect("/guestbook.jsp?guestbookName=TestGuestbook");
 
-    User currentUser = UserServiceFactory.getUserService().getCurrentUser();
+    final User currentUser = UserServiceFactory.getUserService().getCurrentUser();
 
-    Entity greeting = DatastoreServiceFactory.getDatastoreService().prepare(new Query()).asSingleEntity();
+    final Entity greeting = DatastoreServiceFactory.getDatastoreService().prepare(new Query()).asSingleEntity();
 
     assertEquals(guestbookName, greeting.getKey().getParent().getName());
     assertEquals(testContent, greeting.getProperty("content"));
     assertEquals(currentUser, greeting.getProperty("user"));
 
-    Date date = (Date) greeting.getProperty("date");
+    final Date date = (Date) greeting.getProperty("date");
     assertTrue("The date in the entity [" + date + "] is prior to the request being performed",
         priorToRequest.before(date) || priorToRequest.equals(date));
     assertTrue("The date in the entity [" + date + "] is after to the request completed",
